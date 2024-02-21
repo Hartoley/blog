@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ 
+   
+    <style>
+           body{
+            height: 100vh;
+            }
+
+        #big{
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 95vh;
+    }
+
+    input{
+        width: 30%;
+        height: 50px;
+        cursor: pointer;
+
+    }
+
+    button{
+        margin-top: 20px;
+        background-color: blueviolet;
+        border-radius: 20px;
+        border: none;
+        width: 20%;
+        height: 40px;
+        color: white;
+    }
+
+    #pr{
+        display: flex;
+        align-items: center;
+    }
+    #check{
+        width: 15px;
+        height: 15px;
+    }
+
+    
+    </style>
+</head>
+<body>
+    
+   <div id="big">
+   
+    <input type="text" required placeholder="Enter your username" id="username">
+    <input type="email" required placeholder="Enter your Email" id="email">
+    <input type="password" required placeholder="Enter your password" id="password" >
+    <input type="password" required placeholder="Confirm your password" id="confirm" >
+    <div id="pr">
+        <input required type="checkbox" name="" id="check"> <p>Agree to terms and condition</p>
+    </div>
+
+    <button type="submit" onclick="register()">Register</button>
+
+    <p>Own an account already?</p> <button  onclick="login()">Log in here</button>
+
+  
+   
+    
+   </div>
+
+   
+</body>
+</html>
+<script>
+    let username=document.getElementById('username')
+    let email=document.getElementById('email')
+    let password=document.getElementById('password')
+    let confirm=document.getElementById('confirm')
+    let data= JSON.parse(localStorage.getItem('datacollection')) || []
+    let check=document.getElementById('check')
+    console.log(data)
+
+    function register(){
+        let userDetails={
+                        user:username.value,
+                        mail:email.value,
+                        pass: password.value,
+                }
+    if (username.value==''|| email.value==''|| password.value=='' ) { 
+        alert('kindly fill in all required informations')
+        return
+    }else if (password.value !=confirm.value) {
+        alert('Password does not match')
+        return
+    }else if (check.checked==false){
+        alert('Please agree to terms and conditions')
+        return
+    }else{
+        data.push(userDetails)
+        localStorage.setItem('datacollection', JSON.stringify(data))
+        window.location.href='dashboard.html'
+        alert('Sign up successful')
+    }
+        
+    }
+
+    function login(){
+            window.location.href='login.html' 
+    }
+
+ 
+</script>

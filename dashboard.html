@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         #sign{
+        display: flex;
+        justify-content: end;
+        width: 100%;
+        height: 15vh;
+    }
+
+    button{
+        background-color: blueviolet;
+        border-radius: 10px;
+        border: none;
+        width: 10%;
+        height: 40px;
+        color: white;
+        margin-top: 10px;
+    }
+
+    #main{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #pic{
+        display: none;
+    }
+
+    #pics{
+        margin-top: 10px;
+        width: 200px;
+        height: 30px;
+    }
+
+    #media{
+        width: 100px;
+        height: 30px;
+        background-color: grey;
+        margin-bottom: 10px;
+    }
+
+    #article{
+        width: 60%;
+    }
+    </style>
+</head>
+<body>
+   <div id="main">
+    <div id="sign">
+        <button onclick="signout()">Sign out</button>
+    </div>
+    <h1 id="welcome">Welcome to your dashboard</h1>
+
+   
+    <input id="pics" type="text">
+    <h2>Author's name</h2>
+    <h1 id="author"></h1>
+    <button id="media">
+        <label for="pic">Add media</label>
+    </button>
+    <!-- <label for="pic">Add media</label> -->
+    <input id="pic" onchange="profilep()" type="file">
+    <img id="img" src="" alt="">
+    <textarea name="" id="article" cols="80" rows="50">
+        
+    </textarea>
+    <button onclick="Publish()">Publish</button>
+   </div>
+</body>
+</html>
+<script>
+    let file=document.getElementById('pic')
+    let welcome=document.getElementById('welcome')
+    let article=document.getElementById('article')
+
+    let bucket=[]
+        let datacol= JSON.parse(localStorage.getItem('loggeduser'))
+        alert(`Welcome back ${datacol.user}`)
+
+        welcome.innerHTML=`Welcome to your dashboard ${datacol.user}`
+
+    function signout() {
+        window.location.href='login.html' 
+    }
+    displayimg()
+
+    function profilep() {
+        console.log(file.files)
+        let read= new FileReader()
+        read.addEventListener('load', (el)=>{
+            let outcome = el.target.result
+            console.log(outcome);
+            bucket.push(outcome);
+
+            console.log(bucket);
+            displayimg()
+
+
+         
+
+        })
+        if(file) {
+            read.readAsDataURL(file.files[0])
+        }
+    }
+
+    // function displayimg(){
+    //     if (bucket=='') {
+    //         img.alt='Add media'
+    //     }else{
+    //         img.src=bucket[imgi]
+    //     }
+    // }
+</script>
